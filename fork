@@ -1,0 +1,56 @@
+git clone https://github.com/YOUR_USERNAME/FORKED_REPO.git
+cd FORKED_REPO
+echo "change 1" >> test.txt
+git add . && git commit -m "fix"
+
+echo "change 2" >> test.txt
+git add . && git commit -m "wip"
+
+echo "change 3" >> test.txt
+git add . && git commit -m "more stuff"
+
+echo "change 4" >> test.txt
+git add . && git commit -m "finally done"
+git log --oneline
+```
+
+You'll see something like:
+```
+a1b2c3d finally done
+e4f5g6h more stuff
+i7j8k9l wip
+m0n1o2p fix
+q3r4s5t initial commit
+git rebase -i HEAD~4
+```
+
+Your editor opens showing:
+```
+pick a1b2c3d fix
+pick e4f5g6h wip
+pick i7j8k9l more stuff
+pick m0n1o2p finally done
+```
+
+**Change it to:**
+```
+pick a1b2c3d fix
+squash e4f5g6h wip
+squash i7j8k9l more stuff
+squash m0n1o2p finally done
+```
+
+Save and close. A new editor opens for the combined commit message. Write a clean message like:
+```
+feat: implement initial test changes
+
+- Added incremental updates to test.txt
+- Consolidated four draft commits into one clean commit
+git log --oneline
+```
+
+Now you'll see:
+```
+z9y8x7w feat: implement initial test changes
+q3r4s5t initial commit
+git push origin main --force
